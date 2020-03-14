@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>共享平台</title>
+</head>
+<body>
+{% if status == '1'%}
+<p id="share_status"><b>【当前共享状态】：正在共享中！</b></p>
+{% else%}
+<p id="share_status"><b>【当前共享状态】：未共享或者已取消共享！</b></p>
+{% endif %}
+<p>共享路径为：{{share_path}}</p>
+<input type="button" value="开始共享" id="start" style="background-color:#33FF33;">
+<br>
+<br>
+<a href={{share_website}}>在开启共享后，请点击此链接：{{share_website}}/share</a>
+<br>
+<br>
+<input type="button" value="取消共享" id="end" style="background-color:#33FF33;">
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+		(function(){
+			$('input[id="start"]').on('click', function(){
+                $('#share_status').html('<p id="share_status"><b>【当前共享状态】：正在共享中！</b></p>')
+                $.ajax({
+                    type: "get",
+                    url: "/update_status",
+                    data: {"status":"1"},
+                    dataType: "json"
+                    });
+		    });
+        })();
+</script>
+<script>
+		(function(){
+			$('input[id="end"]').on('click', function(){
+			    $('#share_status').html('<p id="share_status"><b>【当前共享状态】：未共享或者已取消共享！</b></p>')
+                $.ajax({
+                    type: "get",
+                    url: "/update_status",
+                    data: {"status":"0"},
+                    dataType: "json"
+                    });
+		    });
+        })();
+</script>
+</body>
+</html>
